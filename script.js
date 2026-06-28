@@ -109,3 +109,73 @@ fadeTargets.forEach(el => {
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
   observer.observe(el);
 });
+
+// ===========================
+// SUB-TABS INTERACTIVE LOGIC
+// ===========================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const tabContainer = btn.closest('.tab-container');
+    const tabId = btn.getAttribute('data-tab');
+
+    // Remove active class from buttons and panels
+    tabContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    tabContainer.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+    // Set active class
+    btn.classList.add('active');
+    const targetContent = tabContainer.querySelector(`#${tabId}`);
+    if (targetContent) {
+      targetContent.classList.add('active');
+    }
+  });
+});
+
+// ===========================
+// LIGHTBOX MODAL GALLERY
+// ===========================
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCaption = document.getElementById('lightbox-caption');
+const lightboxClose = document.querySelector('.lightbox-close');
+
+if (lightbox && lightboxImg && lightboxCaption) {
+  document.addEventListener('click', (e) => {
+    const galleryItem = e.target.closest('.gallery-item');
+    if (galleryItem) {
+      const img = galleryItem.querySelector('img');
+      const captionText = galleryItem.getAttribute('data-caption') || img.alt;
+      
+      lightboxImg.src = img.src;
+      lightboxCaption.textContent = captionText;
+      lightbox.classList.add('open');
+    }
+  });
+
+  const closeLightbox = () => {
+    lightbox.classList.remove('open');
+    setTimeout(() => {
+      if (!lightbox.classList.contains('open')) {
+        lightboxImg.src = '';
+        lightboxCaption.textContent = '';
+      }
+    }, 300);
+  };
+
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', closeLightbox);
+  }
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target.classList.contains('lightbox-close')) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+      closeLightbox();
+    }
+  });
+}
+
