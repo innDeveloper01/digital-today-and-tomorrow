@@ -80,7 +80,7 @@ img { max-width: 100%; display: block; }
 /* ---- HERO ---- */
 section.hero {
   position: relative; min-height: 100vh;
-  background: linear-gradient(rgba(15, 30, 54, 0.75), rgba(10, 18, 30, 0.9)), url('assets/homepage.png') center/cover no-repeat;
+  background: linear-gradient(rgba(15, 30, 54, 0.75), rgba(10, 18, 30, 0.9)), url('assets/homepage2.png') center/cover no-repeat;
   display: grid; grid-template-columns: 1fr 1fr;
   align-items: center; padding: 100px 6vw 80px; gap: 3rem; overflow: hidden;
 }
